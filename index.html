@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRAGONDONER — Berlin Döner × Korean Fire | Full-Stack Brand Playbook</title>
+<meta name="description" content="The DragonDoner playbook: how Berlin's 1972 döner met Korean kimchi and breathed fire. Story, history, menu system, and brand strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0806;
+    --panel:#14100c;
+    --panel2:#1a1410;
+    --ink:#f5efe6;
+    --dim:#a3978a;
+    --line:rgba(245,239,230,.14);
+    --ember:#ff4a1c;
+    --torch:#f5c542;
+    --kimchi:#d92e12;
+    --display:'Anton', Impact, sans-serif;
+    --body:'Space Grotesk', 'Helvetica Neue', sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+  ::selection{background:var(--ember);color:#0b0806}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+
+  /* ---------- top bar ---------- */
+  header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+    padding:18px 28px;mix-blend-mode:difference;color:#fff}
+  .brandmark{font-family:var(--display);font-size:20px;letter-spacing:.06em;text-decoration:none}
+  .brandmark span{color:var(--ember)}
+  nav{display:flex;gap:26px}
+  nav a{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;opacity:.75}
+  nav a:hover{opacity:1}
+  @media(max-width:820px){nav{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.05)}
+  .hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,8,6,.35) 0%,rgba(11,8,6,0) 35%,rgba(11,8,6,.72) 78%,var(--bg) 100%)}
+  #embers{position:absolute;inset:0;pointer-events:none;z-index:3}
+  .hero-inner{position:relative;z-index:4;padding:0 28px 46px}
+  .hero-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--torch);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:400;font-size:clamp(56px,12.5vw,190px);line-height:.88;letter-spacing:.01em;text-transform:uppercase}
+  h1 .fire{color:var(--ember);text-shadow:0 0 42px rgba(255,74,28,.45)}
+  .hero-sub{max-width:640px;margin-top:22px;font-size:clamp(16px,1.6vw,21px);color:var(--ink);opacity:.92}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    border:1px solid var(--line);padding:8px 14px;border-radius:999px;background:rgba(11,8,6,.45);backdrop-filter:blur(4px)}
+  .tag.hot{border-color:rgba(255,74,28,.55);color:var(--ember)}
+  .scroll-cue{position:absolute;right:30px;bottom:44px;z-index:4;font-family:var(--mono);font-size:10px;letter-spacing:.3em;
+    text-transform:uppercase;writing-mode:vertical-rl;color:var(--dim)}
+  .scroll-cue::after{content:"";display:block;width:1px;height:54px;background:var(--dim);margin:12px auto 0;animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.3);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  /* ---------- section chrome ---------- */
+  section{position:relative}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+  .sec-head{display:flex;align-items:baseline;gap:20px;border-top:1px solid var(--line);padding-top:18px;margin-bottom:48px}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--ember);letter-spacing:.2em}
+  .sec-title{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.6vw,58px);text-transform:uppercase;line-height:1;letter-spacing:.02em}
+  .sec-note{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  @media(max-width:700px){.sec-note{display:none}}
+  .pad{padding:110px 0}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.on{opacity:1;transform:none}
+
+  /* ---------- manifesto ---------- */
+  .manifesto{background:var(--bg)}
+  .manifesto-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:64px;align-items:start}
+  @media(max-width:900px){.manifesto-grid{grid-template-columns:1fr}}
+  .bigline{font-family:var(--display);font-weight:400;font-size:clamp(26px,3.4vw,44px);line-height:1.18;text-transform:uppercase;letter-spacing:.015em}
+  .bigline em{font-style:normal;color:var(--torch)}
+  .bigline strong{font-weight:400;color:var(--ember)}
+  .manifesto p.body{color:var(--dim);margin-top:26px;max-width:56ch}
+  .hook-card{border:1px solid var(--line);background:var(--panel);padding:34px 30px}
+  .hook-card h3{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--torch);margin-bottom:18px}
+  .hook-card .hook{font-family:var(--display);font-weight:400;font-size:clamp(24px,2.6vw,34px);line-height:1.1;text-transform:uppercase}
+  .hook-card p{margin-top:16px;color:var(--dim);font-size:15px}
+  .hook-card .dragon{color:var(--ember)}
+
+  /* ---------- history timeline ---------- */
+  .history{background:var(--panel)}
+  .timeline{position:relative;margin-top:10px}
+  .timeline::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+  .era{display:grid;grid-template-columns:190px 1fr;gap:38px;padding:44px 0 44px 42px;position:relative;border-bottom:1px solid var(--line)}
+  .era::before{content:"";position:absolute;left:-4.5px;top:58px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--ember)}
+  .era:last-child{border-bottom:none}
+  .era:last-child::before{background:var(--torch);border-color:var(--torch);box-shadow:0 0 18px rgba(245,197,66,.7)}
+  .era-year{font-family:var(--display);font-weight:400;font-size:clamp(34px,4vw,54px);color:var(--ember);line-height:1}
+  .era:last-child .era-year{color:var(--torch);text-shadow:0 0 30px rgba(245,197,66,.35)}
+  .era h4{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.2vw,28px);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px}
+  .era p{color:var(--dim);max-width:62ch}
+  .era .flag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--torch);display:block;margin-bottom:8px}
+  @media(max-width:760px){.era{grid-template-columns:1fr;gap:10px;padding-left:30px}}
+
+  /* ---------- fusion split ---------- */
+  .fusion .split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+  @media(max-width:900px){.fusion .split{grid-template-columns:1fr}}
+  .fusion .visual{position:relative;min-height:520px;overflow:hidden}
+  .fusion .visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 6s cubic-bezier(.2,.6,.2,1)}
+  .fusion .visual:hover img{transform:scale(1.06)}
+  .fusion .visual .cap{position:absolute;left:22px;bottom:18px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    background:rgba(11,8,6,.7);padding:8px 12px;border:1px solid var(--line)}
+  .fusion .text{padding:56px 52px;background:var(--panel)}
+  @media(max-width:900px){.fusion .text{padding:40px 28px}}
+  .fusion h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,3vw,40px);text-transform:uppercase;line-height:1.06;margin-bottom:22px}
+  .fusion h3 span{color:var(--ember)}
+  .fusion p{color:var(--dim);margin-bottom:16px}
+  .trinity{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;border:1px solid var(--line)}
+  .trinity div{flex:1;min-width:150px;padding:18px 16px;text-align:center;border-right:1px solid var(--line)}
+  .trinity div:last-child{border-right:none}
+  .trinity b{font-family:var(--display);font-weight:400;font-size:18px;text-transform:uppercase;display:block;letter-spacing:.04em}
+  .trinity small{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+
+  /* ---------- gallery strip ---------- */
+  .gallery{background:var(--bg);overflow:hidden}
+  .strip{display:flex;gap:22px;overflow-x:auto;padding:6px 28px 26px;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
+  .strip::-webkit-scrollbar{display:none}
+  .strip.dragging{cursor:grabbing;scroll-snap-type:none}
+  .frame{flex:0 0 auto;width:min(72vw,760px);scroll-snap-align:center;position:relative;border:1px solid var(--line);background:var(--panel)}
+  .frame img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+  .frame.tall{width:min(60vw,440px)}
+  .frame.tall img{aspect-ratio:2/3}
+  .frame figcaption{display:flex;justify-content:space-between;padding:14px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .frame figcaption b{color:var(--torch);font-weight:400}
+  .hint{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+  /* ---------- menu ---------- */
+  .menu{background:var(--panel)}
+  .menu-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+  @media(max-width:900px){.menu-grid{grid-template-columns:1fr}}
+  .menu-grid .visual{position:sticky;top:100px;border:1px solid var(--line)}
+  .menu-grid .visual img{width:100%;height:auto}
+  .menu-grid .visual .cap{padding:14px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--line)}
+  .dish{border-top:1px solid var(--line);padding:26px 0;display:grid;grid-template-columns:1fr auto;gap:6px 24px}
+  .dish:last-of-type{border-bottom:1px solid var(--line)}
+  .dish h4{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.1vw,27px);text-transform:uppercase;letter-spacing:.03em}
+  .dish h4 .lv{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ember);vertical-align:middle;margin-left:10px}
+  .dish .price{font-family:var(--mono);font-size:14px;color:var(--torch)}
+  .dish p{grid-column:1/-1;color:var(--dim);font-size:14.5px;max-width:60ch}
+  .sauces{margin-top:34px}
+  .sauces h3{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--torch);margin-bottom:16px}
+  .sauce-row{display:flex;flex-wrap:wrap;gap:10px}
+  .sauce{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);padding:10px 16px;border-radius:999px}
+  .sauce.r{border-color:rgba(217,46,18,.6);color:#ff6a4d}
+  .sauce.y{border-color:rgba(245,197,66,.55);color:var(--torch)}
+  .sauce.g{border-color:rgba(140,190,120,.45);color:#a8cf97}
+
+  /* ---------- people ---------- */
+  .people .split{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border:1px solid var(--line)}
+  @media(max-width:900px){.people .split{grid-template-columns:1fr}}
+  .people .visual{position:relative;min-height:560px;overflow:hidden;order:2}
+  @media(max-width:900px){.people .visual{order:0;min-height:380px}}
+  .people .visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .people .text{padding:56px 52px;background:var(--panel2)}
+  @media(max-width:900px){.people .text{padding:40px 28px}}
+  .people h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,3vw,40px);text-transform:uppercase;line-height:1.06;margin-bottom:22px}
+  .people h3 span{color:var(--torch)}
+  .people p{color:var(--dim);margin-bottom:16px}
+  .stats{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;border-top:1px solid var(--line)}
+  .stat{flex:1;min-width:140px;padding:20px 14px 4px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat b{font-family:var(--display);font-weight:400;font-size:clamp(28px,3vw,42px);color:var(--ember);display:block;line-height:1}
+  .stat small{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+  /* ---------- playbook ---------- */
+  .playbook{background:var(--bg)}
+  .pb-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+  .pb{border:1px solid var(--line);background:var(--panel);padding:32px 28px;grid-column:span 6}
+  .pb.wide{grid-column:span 12}
+  .pb.third{grid-column:span 4}
+  @media(max-width:980px){.pb,.pb.third{grid-column:span 12}}
+  .pb h3{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--torch);margin-bottom:16px}
+  .pb h4.pb-title{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.4vw,32px);text-transform:uppercase;line-height:1.08;margin-bottom:14px}
+  .pb p{color:var(--dim);font-size:15px}
+  .pb ul{list-style:none;margin-top:6px}
+  .pb li{padding:12px 0 12px 26px;border-bottom:1px dashed var(--line);position:relative;color:var(--dim);font-size:15px}
+  .pb li:last-child{border-bottom:none}
+  .pb li::before{content:"▸";position:absolute;left:0;color:var(--ember)}
+  .pb li b{color:var(--ink);font-weight:500}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:20px;border:1px solid var(--line)}
+  @media(max-width:700px){.pillars{grid-template-columns:1fr}}
+  .pillars div{padding:22px 18px;border-right:1px solid var(--line)}
+  .pillars div:last-child{border-right:none}
+  @media(max-width:700px){.pillars div{border-right:none;border-bottom:1px solid var(--line)}}
+  .pillars b{font-family:var(--display);font-weight:400;font-size:20px;text-transform:uppercase;display:block;margin-bottom:8px;letter-spacing:.04em}
+  .pillars div:nth-child(1) b{color:var(--ember)}
+  .pillars div:nth-child(2) b{color:var(--torch)}
+  .pillars div:nth-child(3) b{color:#ff6a4d}
+  .pillars small{color:var(--dim);font-size:14px}
+  .launch{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.launch{grid-template-columns:1fr}}
+  .phase{border:1px solid var(--line);padding:26px 24px;background:var(--panel2)}
+  .phase .ph{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--ember);text-transform:uppercase}
+  .phase h5{font-family:var(--display);font-weight:400;font-size:22px;text-transform:uppercase;margin:10px 0 12px;letter-spacing:.03em}
+  .phase p{font-size:14px;color:var(--dim)}
+
+  /* ---------- partners ---------- */
+  .partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.partners-grid{grid-template-columns:1fr}}
+  .partner{border:1px solid var(--line);background:var(--panel2);padding:30px 26px;display:flex;flex-direction:column;gap:12px}
+  .partner .ph{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--ember);text-transform:uppercase}
+  .partner h5{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.4vw,30px);text-transform:uppercase;margin:0;letter-spacing:.03em;line-height:1.05}
+  .partner h5 span{color:var(--torch)}
+  .partner p{font-size:14px;color:var(--dim);flex:1}
+  .partner a.plink{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--torch);text-decoration:none;border-top:1px dashed var(--line);padding-top:14px}
+  .partner a.plink:hover{color:var(--ember)}
+  .coop-line{margin-top:44px;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);line-height:2.1}
+  .coop-line a{color:var(--torch);text-decoration:none}
+  .coop-line a:hover{color:var(--ember)}
+  .voice{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+  .voice span{font-family:var(--display);font-size:clamp(18px,2vw,26px);text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line);padding:12px 20px}
+  .voice span.f{color:var(--ember);border-color:rgba(255,74,28,.5)}
+  .voice span.t{color:var(--torch);border-color:rgba(245,197,66,.5)}
+
+  /* ---------- brandmark logo ---------- */
+  .brandmark img{height:24px;width:24px;object-fit:contain;margin-right:9px;vertical-align:-5px}
+
+  /* ---------- social kit ---------- */
+  .kit-head{margin:74px 28px 30px;display:flex;align-items:baseline;gap:20px;border-top:1px solid var(--line);padding-top:18px}
+  .kit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0 28px}
+  @media(max-width:820px){.kit-grid{grid-template-columns:1fr}}
+  .kit{margin:0;border:1px solid var(--line);background:var(--panel2);padding:14px}
+  .kit img{width:100%;aspect-ratio:9/16;object-fit:cover}
+  .kit figcaption{display:flex;justify-content:space-between;padding:12px 4px 2px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .kit figcaption b{color:var(--torch);font-weight:400}
+  .frame.tall video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:80px 0 40px;text-align:center}
+  footer .logo{font-family:var(--display);font-weight:400;font-size:clamp(48px,9vw,130px);text-transform:uppercase;line-height:.9;
+    color:transparent;-webkit-text-stroke:1px rgba(245,239,230,.35);transition:.4s}
+  footer .logo:hover{color:var(--ember);-webkit-text-stroke:1px var(--ember);text-shadow:0 0 50px rgba(255,74,28,.4)}
+  footer .url{margin-top:26px;font-family:var(--mono);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--torch);text-decoration:none;display:inline-block}
+  footer small{display:block;margin-top:34px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brandmark" href="#top"><img src="social/logo.png" alt="DragonDoner logo — dragon coiled around a döner skewer">DRAGON<span>DONER</span></a>
+  <nav>
+    <a href="#story">Story</a>
+    <a href="#history">History</a>
+    <a href="#fusion">Fusion</a>
+    <a href="#menu">Menu</a>
+    <a href="#people">People</a>
+    <a href="#playbook">Playbook</a>
+    <a href="#partners">Partners</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <video autoplay muted loop playsinline poster="assets/hero.jpg" id="heroVideo">
+    <source src="assets/story.mp4" type="video/mp4">
+  </video>
+  <div class="shade"></div>
+  <canvas id="embers"></canvas>
+  <div class="hero-inner">
+    <div class="hero-kicker">Berlin 1972 × Seoul Fire — The Full-Stack Playbook</div>
+    <h1>Dragon<span class="fire">doner</span></h1>
+    <p class="hero-sub">The döner kebab that Berlin gave the world — reborn with Korean kimchi and dragon fire. Two food civilizations, one hand, one city, zero compromise.</p>
+    <div class="hero-meta">
+      <span class="tag hot">Kimchi-Infused</span>
+      <span class="tag">Fine-Cut Vegetables</span>
+      <span class="tag">3 Bread Traditions</span>
+      <span class="tag">Exotic Sauces</span>
+      <span class="tag">Est. 1972 → 2026</span>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll the fire</div>
+</section>
+
+<!-- ============ 01 STORY ============ -->
+<section class="manifesto pad" id="story">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <span class="sec-title">The Story</span>
+      <span class="sec-note">Why a dragon guards this döner</span>
+    </div>
+    <div class="manifesto-grid">
+      <div class="reveal">
+        <p class="bigline">In 1972, a Turkish guest worker in Berlin put fire-spit meat into bread and <em>changed street food forever.</em> In 2026, <strong>DragonDoner adds Seoul's kimchi to the flame</strong> — and the dragon finally wakes.</p>
+        <p class="body">Every great street food is a migration story. The Berlin döner was born when Anatolian roasting craft met German city speed. DragonDoner writes the next chapter: Korea's thousand-year-old art of fermented fire — kimchi — tucked into Berlin's most iconic handheld meal. Crunchy, fiery, sour, smoky. A döner that unites three food cultures in a single bite, served where it all began: Berlin.</p>
+        <p class="body">This is not fusion for fusion's sake. It is the same recipe that built the original: take what immigrants carry in their hearts, sharpen it for the street, and let the whole city fall in love.</p>
+      </div>
+      <div class="hook-card reveal">
+        <h3>The Unique Hook</h3>
+        <p class="hook">Döner was the first fusion.<br><span class="dragon">DragonDoner is the first fire.</span></p>
+        <p>Berlin invented the döner-in-bread. Korea perfected the ferment. DragonDoner owns the story where East meets West over an open flame — a brand hook no competitor can copy, because it is baked into history itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 HISTORY ============ -->
+<section class="history pad" id="history">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <span class="sec-title">The Road to Fire</span>
+      <span class="sec-note">From Bursa to Berlin to the Dragon</span>
+    </div>
+    <div class="timeline">
+      <div class="era reveal">
+        <div class="era-year">1830s</div>
+        <div>
+          <span class="flag">Bursa · Ottoman Empire</span>
+          <h4>The Vertical Spit Is Born</h4>
+          <p>In Bursa, Anatolia, cooks turn the old horizontal kebab upright. Meat rotates beside the flame, roasting layer by layer — the technique every döner, gyro, shawarma and al pastor still descends from today.</p>
+        </div>
+      </div>
+      <div class="era reveal">
+        <div class="era-year">1961–72</div>
+        <div>
+          <span class="flag">Berlin · Gastarbeiter Era</span>
+          <h4>Turkish Hands Build West Berlin</h4>
+          <p>Hundreds of thousands of Turkish guest workers arrive during the Wirtschaftswunder, the Berlin Wall sealing the labor shortage they filled. They bring their rotisserie craft with them — and a hunger to feed a fast-moving city.</p>
+        </div>
+      </div>
+      <div class="era reveal">
+        <div class="era-year">1972</div>
+        <div>
+          <span class="flag">Bahnhof Zoo · The Invention</span>
+          <h4>Kadir Nurman Serves the First Döner in Bread</h4>
+          <p>Opposite Zoo Station, Kadir Nurman tucks shaved spit-meat into flatbread with onions — a plate dish reborn as a one-hand meal for 1.50 DM. Salad, cabbage and sauces follow. Berlin creates the world's most popular street food. (Contenders Mehmet Aygün in Kreuzberg and Nevzat Salim in Reutlingen keep the legend hotly debated.)</p>
+        </div>
+      </div>
+      <div class="era reveal">
+        <div class="era-year">1996</div>
+        <div>
+          <span class="flag">Berlin · Reinvention</span>
+          <h4>The Gemüse Döner Revolution</h4>
+          <p>During the BSE crisis, stands like Mustafa's push roasted vegetables and chicken into the spotlight, proving the Berlin döner never stands still — it absorbs whatever the city hunger for next.</p>
+        </div>
+      </div>
+      <div class="era reveal">
+        <div class="era-year">2026</div>
+        <div>
+          <span class="flag">Berlin × Seoul · dragondoner.com</span>
+          <h4>The Dragon Wakes — Kimchi Meets the Spit</h4>
+          <p>DragonDoner unites the Anatolian flame with Korea's fermented fire. Fine-cut vegetables, kimchi, exotic sauces, three bread traditions — served to every nationality on Berlin's streets. The unification bite the city was always building toward.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 FUSION ============ -->
+<section class="fusion pad" id="fusion">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <span class="sec-title">The Fusion</span>
+      <span class="sec-note">One bite, three civilizations</span>
+    </div>
+    <div class="split reveal">
+      <div class="visual">
+        <img src="assets/ingredients.jpg" alt="Fine-cut vegetables and kimchi flat-lay: red and white cabbage, cucumber, tomato, onion, kimchi, chilies, sesame, and sauces">
+        <span class="cap">Fine-cut daily · kimchi aged in-house · sauces made at dawn</span>
+      </div>
+      <div class="text">
+        <h3>Anatolian flame.<br>German craft. <span>Korean fire.</span></h3>
+        <p>The Berlin signature stays: vegetables cut fine — red and white cabbage shaved paper-thin, cucumber ribbons, tomato, onion — loaded into bread toasted until it crackles. That crunch is pure Berlin DNA.</p>
+        <p>What changes everything is the red: house-fermented kimchi, sharp and alive, plus the Dragon Sauce — gochujang folded into cooling yogurt-garlic. Smoke meets ferment. Heat meets cream. The dragon's breath.</p>
+        <div class="trinity">
+          <div><b>Türkiye</b><small>The spit &amp; the flame</small></div>
+          <div><b>Germany</b><small>The bread &amp; the crunch</small></div>
+          <div><b>Korea</b><small>The kimchi &amp; the fire</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY STRIP ============ -->
+<section class="gallery pad">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">—</span>
+      <span class="sec-title">The Gallery</span>
+      <span class="sec-note">Drag to explore</span>
+    </div>
+  </div>
+  <div class="strip" id="strip">
+    <figure class="frame tall">
+      <img src="assets/origin.jpg" alt="1970s Berlin döner spit at a Zoo station kiosk, sign reading DÖNER 2,- DM">
+      <figcaption><b>1972</b><span>The origin — Bahnhof Zoo</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <img src="assets/hero.jpg" alt="DragonDoner kebab with kimchi wrapped in dragon flames, Berlin TV tower behind">
+      <figcaption><b>The Hero</b><span>Kimchi döner, dragon fire</span></figcaption>
+    </figure>
+    <figure class="frame tall">
+      <video autoplay muted loop playsinline poster="social/story_teaser.jpg">
+        <source src="social/reel.mp4" type="video/mp4">
+      </video>
+      <figcaption><b>The Reel</b><span>9:16 — Reels &amp; TikTok</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <img src="assets/ingredients.jpg" alt="Finely cut vegetables, kimchi and sauces arranged on dark slate">
+      <figcaption><b>Fine Cut</b><span>Vegetables &amp; kimchi</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <img src="assets/breads.jpg" alt="Three bread styles with three exotic sauces">
+      <figcaption><b>Three Breads</b><span>Three sauces</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <img src="assets/people.jpg" alt="Friends of many nationalities eating DragonDoner at a Berlin night market">
+      <figcaption><b>One Table</b><span>Every nation welcome</span></figcaption>
+    </figure>
+  </div>
+  <p class="hint">← drag →</p>
+  <div class="kit-head reveal">
+    <span class="sec-num">+</span>
+    <span class="sec-title">The Social Kit</span>
+    <span class="sec-note">9:16 · ready to post · dragondoner/social</span>
+  </div>
+  <div class="kit-grid reveal">
+    <figure class="kit">
+      <img src="social/story_teaser.jpg" alt="Feed the Dragon teaser story template">
+      <figcaption><b>Teaser</b><span>launch countdowns</span></figcaption>
+    </figure>
+    <figure class="kit">
+      <img src="social/story_menu.jpg" alt="The Original Dragon menu card story template">
+      <figcaption><b>Menu Card</b><span>daily lineup</span></figcaption>
+    </figure>
+    <figure class="kit">
+      <img src="social/story_history.jpg" alt="1972 invented it history hook story template">
+      <figcaption><b>History Hook</b><span>press &amp; story posts</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 04 MENU ============ -->
+<section class="menu pad" id="menu">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <span class="sec-title">The Lineup</span>
+      <span class="sec-note">Different breads · exotic sauces · fine cuts</span>
+    </div>
+    <div class="menu-grid">
+      <div class="visual reveal">
+        <img src="assets/breads.jpg" alt="Toasted pide quarter, grilled dürüm and sesame roll with three sauce bowls">
+        <div class="cap">Quarter pide · grilled dürüm · sesame roll — each its own ritual</div>
+      </div>
+      <div class="reveal">
+        <div class="dish">
+          <h4>The Original Dragon <span class="lv">HEAT ●●●○</span></h4><span class="price">€8.90</span>
+          <p>The hero. Spit-roasted meat, house kimchi, fine-cut red &amp; white cabbage, cucumber, tomato, onion — in a toasted quarter pide, finished with Dragon Sauce.</p>
+        </div>
+        <div class="dish">
+          <h4>Kimchi Dürüm <span class="lv">HEAT ●●●●</span></h4><span class="price">€8.50</span>
+          <p>Everything rolled tight in a flame-grilled lavash dürüm. Extra kimchi, extra gochujang butter, toasted on the grill until the wrap crackles.</p>
+        </div>
+        <div class="dish">
+          <h4>Dragon Gemüse <span class="lv">HEAT ●●○○</span></h4><span class="price">€7.90</span>
+          <p>The 1996 Berlin veggie revolution, dragonized: charred roasted vegetables, kimchi, herb-chili sauce in a sesame roll.</p>
+        </div>
+        <div class="dish">
+          <h4>Seoul Berlin Box <span class="lv">HEAT ●●●○</span></h4><span class="price">€9.90</span>
+          <p>Deconstructed for the purists: kimchi-fried döner meat over kimchi, pickles and sesame, kimchi mayo on the side.</p>
+        </div>
+        <div class="sauces">
+          <h3>The Exotic Sauce Rites</h3>
+          <div class="sauce-row">
+            <span class="sauce r">Dragon Sauce — gochujang × garlic yogurt</span>
+            <span class="sauce y">Torch Cream — smoked chili honey</span>
+            <span class="sauce g">Herb Riot — chimichurri fire</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 PEOPLE ============ -->
+<section class="people pad" id="people">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">05</span>
+      <span class="sec-title">The Unification</span>
+      <span class="sec-note">Every nationality, one flavor</span>
+    </div>
+    <div class="split reveal">
+      <div class="text">
+        <h3>Berlin doesn't eat döner.<br><span>Berlin eats together.</span></h3>
+        <p>The döner was never just food — it was the first meal Germans and Turks truly shared. DragonDoner extends that invitation: to Koreans who recognize their grandmother's kimchi, to Berliners who guard the crunch of a toasted pide, to every newcomer tasting both for the first time.</p>
+        <p>At the DragonDoner stand there is one queue, one fire, one language: <b style="color:var(--ink)">"mit scharf?"</b> — answered the world over with a nod.</p>
+        <div class="stats">
+          <div class="stat"><b>3</b><small>Food cultures united</small></div>
+          <div class="stat"><b>~1,600</b><small>Döner stands in Berlin today</small></div>
+          <div class="stat"><b>1</b><small>City that started it all</small></div>
+        </div>
+      </div>
+      <div class="visual">
+        <img src="assets/people.jpg" alt="Diverse friends of many nationalities laughing with DragonDoner wraps outside a neon-lit Berlin stand">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 PLAYBOOK ============ -->
+<section class="playbook pad" id="playbook">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">06</span>
+      <span class="sec-title">The Full-Stack Playbook</span>
+      <span class="sec-note">dragondoner.com · brand operating system</span>
+    </div>
+    <div class="pb-grid">
+
+      <div class="pb wide reveal">
+        <h3>Brand Essence</h3>
+        <h4 class="pb-title">Migration is the mother of flavor. Fire is its language.</h4>
+        <p>DragonDoner is positioned as the heir to Berlin's original invention — not another kebab shop, but the next chapter of the city's most important food story. Every asset, from wrapping paper to neon signage, carries the same narrative: <b style="color:var(--ink)">three food civilizations, one flame.</b></p>
+        <div class="pillars">
+          <div><b>Fire</b><small>Ember red, living flame, real heat. We never say "spicy" — we say "dragon."</small></div>
+          <div><b>Unity</b><small>One queue, one table, every accent. The döner was Berlin's first peace treaty.</small></div>
+          <div><b>Craft</b><small>Fine-cut daily, kimchi aged in-house, bread toasted to order. No shortcuts past the flame.</small></div>
+        </div>
+      </div>
+
+      <div class="pb reveal">
+        <h3>Audience</h3>
+        <h4 class="pb-title">Who the dragon feeds</h4>
+        <ul>
+          <li><b>The Berlin Purist</b> — guards the 1972 standard; won over by the crunch, kept by the story.</li>
+          <li><b>The Korean Diaspora & K-Culture Wave</b> — sees kimchi taken seriously, not as a gimmick.</li>
+          <li><b>The Global Street-Food Hunter</b> — quests for the next must-eat; DragonDoner is built to be posted.</li>
+          <li><b>The Night City</b> — clubbers, shift workers, night-owls; the stand glows when Berlin glows.</li>
+        </ul>
+      </div>
+
+      <div class="pb reveal">
+        <h3>Voice &amp; Copy System</h3>
+        <h4 class="pb-title">Speak in flame</h4>
+        <p>Short. Loud. Warm underneath. We borrow the Imbiss counter's directness and Seoul's playful heat.</p>
+        <div class="voice">
+          <span class="f">"Feed the dragon."</span>
+          <span>"mit scharf — dragon scharf."</span>
+          <span class="t">"1972 invented it. We set it on fire."</span>
+          <span class="f">"Kimchi ist kultur."</span>
+        </div>
+      </div>
+
+      <div class="pb reveal">
+        <h3>The Hook Machine</h3>
+        <h4 class="pb-title">Content that can't be copied</h4>
+        <ul>
+          <li><b>History Hook</b> — "The first fusion food just got a sequel" — press &amp; documentary angles.</li>
+          <li><b>Fire Hook</b> — dragon-flame hero shots, slow-mo embers, ASMR slicing. Thumb-stopping by nature.</li>
+          <li><b>Unity Hook</b> — real customers, every nationality, one bite: user-generated #DragonBite wall.</li>
+          <li><b>Heat Hook</b> — the Dragon Scale (●–●●●●●) printed on every wrap; challenge tiers drive social.</li>
+        </ul>
+      </div>
+
+      <div class="pb reveal">
+        <h3>Product System</h3>
+        <h4 class="pb-title">One flame, many vessels</h4>
+        <ul>
+          <li><b>Three breads</b> — toasted quarter pide (classic), flame-grilled dürüm (roll), sesame roll (gemüse).</li>
+          <li><b>Fine-cut doctrine</b> — cabbage shaved daily, cucumber ribbons, kimchi cut to order; texture is the brand.</li>
+          <li><b>Sauce rites</b> — Dragon Sauce (gochujang×yogurt), Torch Cream, Herb Riot; three rites, infinite combos.</li>
+          <li><b>The Dragon Scale</b> — heat levels 1–5; level 5 requires a nod to the grill master.</li>
+        </ul>
+      </div>
+
+      <div class="pb wide reveal">
+        <h3>Launch Sequence — 90 Days of Fire</h3>
+        <div class="launch">
+          <div class="phase">
+            <span class="ph">Phase 01 · Days 1–30</span>
+            <h5>Ignite the Legend</h5>
+            <p>Tease the history hook: "Berlin 1972 → 2026" murals, the hero film, a countdown at one glowing stand. No menu reveals — only flame.</p>
+          </div>
+          <div class="phase">
+            <span class="ph">Phase 02 · Days 31–60</span>
+            <h5>Feed the City</h5>
+            <p>Open the stand. Free kimchi tastings for Berlin's döner elders; the #DragonBite wall goes live; heat-challenge nights with the Dragon Scale.</p>
+          </div>
+          <div class="phase">
+            <span class="ph">Phase 03 · Days 61–90</span>
+            <h5>Spread the Fire</h5>
+            <p>Second location, food-festival takeover, the playbook as published manifesto on dragondoner.com — franchise-ready brand kit shipped.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 PARTNERS ============ -->
+<section class="pad" id="partners">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">07</span>
+      <span class="sec-title">Partners in Fire</span>
+      <span class="sec-note">Cooperation · festivals · social</span>
+    </div>
+    <div class="partners-grid reveal">
+      <div class="partner">
+        <span class="ph">Festival Partner</span>
+        <h5>Dragon<span>Fest</span> Berlin</h5>
+        <p>Berlin's celebration of fire, street food and Asian pop culture — DragonDoner is the official döner of the dragon. Shared stands, heat challenges and the festival Dragon Scale final.</p>
+        <a class="plink" href="https://dragonfestberlin.com">dragonfestberlin.com ↗</a>
+      </div>
+      <div class="partner">
+        <span class="ph">Festival Partner</span>
+        <h5>Mango<span>Fest</span> Berlin</h5>
+        <p>Berlin's tropical street-food festival — where the Dragon Gemüse meets the mango. Co-branded summer special: kimchi-mango Dragon Dürüm, sold only on festival grounds.</p>
+        <a class="plink" href="https://mangofestberlin.com">mangofestberlin.com ↗</a>
+      </div>
+      <div class="partner">
+        <span class="ph">Social Partner</span>
+        <h5>Insta <span>@dragondoner</span></h5>
+        <p>Daily fire from the stand: slow-mo slicing, kimchi pulls, the #DragonBite wall and every heat-level challenge. Tag us — the best dragon bites get reposted and earn a free Torch Cream.</p>
+        <a class="plink" href="https://instagram.com/dragondoner">instagram.com/dragondoner ↗</a>
+      </div>
+    </div>
+    <p class="coop-line reveal">Cooperation &amp; press — <a href="mailto:partners@dragondoner.com">partners@dragondoner.com</a><br>Catering, festivals &amp; franchise — the dragon shares its flame.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap reveal">
+    <div class="logo">DragonDoner</div>
+    <a class="url" href="https://dragondoner.com">dragondoner.com</a>
+    <small>Berlin · Anatolia · Seoul — one flame · with DragonFest Berlin &amp; MangoFest Berlin · playbook v1.0 · 2026</small>
+  </div>
+</footer>
+
+<script>
+  // ---------- scroll reveal ----------
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---------- drag-to-scroll gallery ----------
+  const strip = document.getElementById('strip');
+  let down = false, sx = 0, sl = 0;
+  strip.addEventListener('pointerdown', e => { down = true; sx = e.clientX; sl = strip.scrollLeft; strip.classList.add('dragging'); });
+  window.addEventListener('pointermove', e => { if (!down) return; strip.scrollLeft = sl - (e.clientX - sx); });
+  window.addEventListener('pointerup', () => { down = false; strip.classList.remove('dragging'); });
+
+  // ---------- ember particles over hero ----------
+  const cv = document.getElementById('embers'), ctx = cv.getContext('2d');
+  let W, H, parts = [];
+  function resize(){ W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const N = 42;
+  for (let i = 0; i < N; i++) parts.push({
+    x: Math.random(), y: Math.random(),
+    r: .8 + Math.random() * 2.2,
+    vy: .0004 + Math.random() * .0011,
+    vx: (Math.random() - .5) * .0006,
+    a: .15 + Math.random() * .5,
+    hue: Math.random() < .5 ? '#ff4a1c' : '#f5c542',
+    ph: Math.random() * Math.PI * 2
+  });
+  let t = 0;
+  (function tick(){
+    t += .016;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of parts) {
+      p.y -= p.vy; p.x += p.vx + Math.sin(t + p.ph) * .0004;
+      if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+      const tw = .6 + .4 * Math.sin(t * 3 + p.ph);
+      ctx.globalAlpha = p.a * tw;
+      ctx.fillStyle = p.hue;
+      ctx.beginPath(); ctx.arc(p.x * W, p.y * H, p.r, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(tick);
+  })();
+
+  // ---------- hero video fallback: if the mp4 is missing, keep the hero image ----------
+  const v = document.getElementById('heroVideo');
+  v.addEventListener('error', () => { v.removeAttribute('autoplay'); }, true);
+</script>
+</body>
+</html>
